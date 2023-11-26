@@ -7,13 +7,19 @@ function VectorFeatureOfOne = vectorFeatureOfOne_MFCC(filename, N_MFCC, framelen
 
     % Split into three parts and take the middle part
     part_len = floor(length(x) / 3);
-    part_middle = x(part_len + 1 : part_len * 2);
+part_middle = x(part_len + 1 : part_len * 2);
 
-    % Split the middle part into frames with a length of 20ms and a frame distance of 10ms
-    frame_len = framelen * 0.001 * fs;
-    frame_dis = frameshift * 0.001 * fs;
+frame_len = framelen * 0.001 * fs;
+frame_dis = frameshift * 0.001 * fs;
 
-    frames = buffer(part_middle, frame_len, frame_dis, 'nodelay');
+num_frames = floor((length(part_middle) - frame_len) / frame_dis) + 1;
+frames = zeros(frame_len, num_frames);
+
+for i = 1:num_frames
+    start_index = (i - 1) * frame_dis + 1;
+    end_index = start_index + frame_len - 1;
+    frames(:, i) = part_middle(start_index:end_index);
+end
     num_frames = size(frames, 2);
 
     featureVector = zeros(N_MFCC, 1);

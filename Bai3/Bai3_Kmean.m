@@ -45,7 +45,7 @@ function Bai3_Kmean(N_MFCC, frame_len, frame_shift, k)
     fprintf('Ty le: %f\n', count/105);
     disp(confusion_matrix);
     
-    fig = figure('NumberTitle', 'off', 'Name', sprintf('Bài 3 với k = %d', k));
+    fig = figure('NumberTitle', 'off', 'Name', sprintf('Bai 3 voi k = %d', k));
     
     % Tao bang hien thi confusion_matrix
     columnNames = cellstr(filename);

@@ -5,15 +5,20 @@ function VectorFeatureOfOne = vectorFeatureOfOne(filename, N_FFT, framelen, fram
     x = x / max(abs(x));
 
     %2.a Chia thanh 3 doan lay doan giua
-    part_len = floor(length(x)/3);
+    part_len = floor(length(x) / 3);
+part_middle = x(part_len + 1 : part_len * 2);
 
-    part_middle = x(part_len + 1 : part_len * 2);
+frame_len = framelen * 0.001 * fs;
+frame_dis = framedis * 0.001 * fs;
 
-    %Chia doan thanh M khung voi do dai 20ms, do dich khung 10ms
-    frame_len = framelen * 0.001 * fs;
-    frame_dis = framedis * 0.001 * fs; 
+num_frames = floor((length(part_middle) - frame_len) / frame_dis) + 1;
+frames = zeros(frame_len, num_frames);
 
-    frames = buffer(part_middle, frame_len, frame_dis, 'nodelay');
+for i = 1:num_frames
+    start_index = (i - 1) * frame_dis + 1;
+    end_index = start_index + frame_len - 1;
+    frames(:, i) = part_middle(start_index:end_index);
+end
     %w = hamming(length(frames(1, :)));
     num_frames = size(frames, 2);
 
