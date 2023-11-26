@@ -1,15 +1,18 @@
-function Bai3(N_MFCC, frame_len, frame_shift)
+function Bai3_Kmean(N_MFCC, frame_len, frame_shift, k)
     TrainDir = fullfile('..', 'NguyenAmKiemThu-16K');
-
+    
     % Lay danh sach thu muc con cap 1
     ListDir = dir(TrainDir);  % L?c ch? l?y c?c th? m?c
     ListDir = ListDir(3:end);  % Bo qua '.' va '..'
-
+    
     filename = ['a';'e';'i';'o';'u'];
-
-    vectorsCheck = vectorFeatureOfAll_MFCC(N_MFCC, frame_len, frame_shift);
-    plotFeatureVector(vectorsCheck);
-
+    
+    vectorsCheck = vectorFeatureOfAllKmean(N_MFCC, frame_len, frame_shift, k);
+    
+    if (k == 1) 
+        plotFeatureVector(vectorsCheck);
+    end
+    
     confusion_matrix = zeros(5, 5);
 
     for i = 1:length(ListDir)
@@ -20,19 +23,21 @@ function Bai3(N_MFCC, frame_len, frame_shift)
             vector = vectorFeatureOfOne_MFCC(audioFile, N_MFCC, frame_len, frame_shift);
                
             minDistance = euclideanDistance(vector,vectorsCheck(:,1));
-            position = 1;
-            for k = 2: 5
-                tmpDistance = euclideanDistance(vector,vectorsCheck(:,k));
+            indentifiedVowel = 1;
+            for l = 2 : 5 * k
+                tmpDistance = euclideanDistance(vector,vectorsCheck(:,l));
                 if(minDistance>=tmpDistance)
                      minDistance = tmpDistance;
-                     position = k;
-                end  
+                     indentifiedVowel = floor((l - 1) / k) + 1;
+                end
+                    
             end
-            confusion_matrix(j, position) = confusion_matrix(j, position) + 1;
+    
+            confusion_matrix(j, indentifiedVowel) = confusion_matrix(j, indentifiedVowel) + 1; 
         end
     end
-
-    % Tính độ chính xác nhận dạng
+    
+    % Tính tỉ lệ nhận dạnh chính xác
     count = 0;
     for i = 1 : 5
         count = count + confusion_matrix(i, i);
@@ -41,10 +46,9 @@ function Bai3(N_MFCC, frame_len, frame_shift)
     fprintf('Ty le: %f\n', count/105);
     disp(confusion_matrix);
     
-    fig = figure('NumberTitle', 'off', 'Name', 'Bài 3');
+    fig = figure('NumberTitle', 'off', 'Name', sprintf('Bài 3 với k = %d', k));
     
-    % ao bang
-    % tableData = num2cell(transpose(confusion_matrix));
+    % Tạo bảng hiển thị confusion_matrix
     columnNames = cellstr(filename);
     rowNames = cellstr(filename);
     tableHandle = uitable('Data', confusion_matrix, 'ColumnName', columnNames, 'RowName', rowNames);

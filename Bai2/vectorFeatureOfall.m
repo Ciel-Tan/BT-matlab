@@ -2,11 +2,11 @@ function data = vectorFeatureOfall(N_FFT, frame_lem, frame_dis)
 
 data = [];
 % Thu muc chua du lieu
-dataTrainDir = '..\NguyenAmHuanLuyen-16K';
+dataTrainDir = fullfile('..', 'NguyenAmHuanLuyen-16K');
 
 % Lay danh sach thu muc con cap 1
 subDirs = dir(dataTrainDir);
-subDirs = subDirs([subDirs.isdir]);  % L?c ch? l?y c·c th? m?c
+subDirs = subDirs([subDirs.isdir]);  % L?c ch? l?y c√°c th? m?c
 subDirs = subDirs(3:end);  % Bo qua '.' va '..'
 
 filename = ['a';'e';'i';'o';'u'];
@@ -22,7 +22,7 @@ for j = 1:5
         result = result + y;
 
     end
+    % thu duoc vector dac trung cua 1 nguyen am
     average = result / length(subDirs);
-    data = [data,average];
-    
+    data = [data, average];
 end

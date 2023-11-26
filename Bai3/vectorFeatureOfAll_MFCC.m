@@ -2,13 +2,13 @@ function data = vectorFeatureOfAll_MFCC(N_MFCC, frame_len, frame_shift)
 
 data = [];
 % Th? m?c ch?a d? li?u
-TrainDir = '..\NguyenAmHuanLuyen-16K';
+TrainDir = fullfile('..', 'NguyenAmHuanLuyen-16K');
 
-% L?y danh s·ch c·c th? m?c con c?p 1
+% L?y danh s√°ch c√°c th? m?c con c?p 1
 ListDir = dir(TrainDir);
-ListDir = ListDir(3:end);  % B? qua '.' v‡ '..'
+ListDir = ListDir(3:end);  % B? qua '.' v√† '..'
 
-% Duy?t qua t?ng th? m?c v‡ ??c file 'a.wav'
+% Duy?t qua t?ng th? m?c v√† ??c file 'a.wav'
 filename = ['a';'e';'i';'o';'u'];
 
 for j = 1:5

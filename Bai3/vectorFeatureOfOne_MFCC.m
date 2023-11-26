@@ -18,10 +18,10 @@ function VectorFeatureOfOne = vectorFeatureOfOne_MFCC(filename, N_MFCC, framelen
 
     featureVector = zeros(N_MFCC, 1);
     for i = 1:num_frames
-        tmp = frames(:, i);
+        frame = frames(:, i);
         
         % Extract MFCC vector from one frame
-        mfcc_result = melcepst(tmp, fs, 'M', N_MFCC);
+        mfcc_result = melcepst(frame, fs, 'M', N_MFCC);
         
         featureVector = featureVector + transpose(mfcc_result);
     end

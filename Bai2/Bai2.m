@@ -1,5 +1,6 @@
 function Bai2(N_FFT, frame_len, frame_dis)
-    TrainDir = '..\NguyenAmKiemThu-16K';
+    %TrainDir = '..\NguyenAmKiemThu-16K';
+    TrainDir = fullfile('..', 'NguyenAmKiemThu-16K');
 
     % Lay danh sach thu muc con cap 1
     ListDir = dir(TrainDir);
@@ -19,7 +20,7 @@ function Bai2(N_FFT, frame_len, frame_dis)
             audioFile = fullfile(CurtDir, strcat(filename(j),'.wav'));
             vector = vectorFeatureOfOne(audioFile, N_FFT, frame_len, frame_dis);
 
-            minDistance = euclideanDistance(vector,vectorsCheck(:,1));
+            minDistance = euclideanDistance(vector, vectorsCheck(:,1));
             position = 1;
             for k = 2: 5
                 tmpDistance = euclideanDistance(vector,vectorsCheck(:,k));
@@ -28,7 +29,7 @@ function Bai2(N_FFT, frame_len, frame_dis)
                    position = k;
                 end
             end
-                confusion_matrix(position, j) = confusion_matrix(position, j) + 1;
+                confusion_matrix(j, position) = confusion_matrix(j, position) + 1;
         end
 
     end
@@ -40,13 +41,13 @@ function Bai2(N_FFT, frame_len, frame_dis)
     fprintf('Ty le: %f\n', count/105);
     disp(confusion_matrix);
 
-    fig = figure('NumberTitle', 'off', 'Name', 'Bài 2');
+    fig = figure('NumberTitle', 'off', 'Name', 'BÃ i 2');
 
     % Tao mot bang
-    tableData = num2cell(transpose(confusion_matrix));
+    % tableData = num2cell(transpose(confusion_matrix));
     columnNames = cellstr(filename);
     rowNames = cellstr(filename);
-    tableHandle = uitable('Data', tableData, 'ColumnName', columnNames, 'RowName', rowNames);
+    tableHandle = uitable('Data', confusion_matrix, 'ColumnName', columnNames, 'RowName', rowNames);
 
     % Thiet lap kich thuoc vi tri cua bang
     tablePosition = getpixelposition(fig);  % Lay kich thuoc cua figure

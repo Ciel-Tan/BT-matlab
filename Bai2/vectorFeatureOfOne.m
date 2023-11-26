@@ -9,7 +9,7 @@ function VectorFeatureOfOne = vectorFeatureOfOne(filename, N_FFT, framelen, fram
 
     part_middle = x(part_len + 1 : part_len * 2);
 
-    %Chia doan thanh M frame voi do dai 20ms, khoang cach giua cac frame 10ms
+    %Chia doan thanh M khung voi do dai 20ms, do dich khung 10ms
     frame_len = framelen * 0.001 * fs;
     frame_dis = framedis * 0.001 * fs; 
 
@@ -30,4 +30,3 @@ function VectorFeatureOfOne = vectorFeatureOfOne(filename, N_FFT, framelen, fram
     
     VectorFeatureOfOne = featureVector;
 end
-
