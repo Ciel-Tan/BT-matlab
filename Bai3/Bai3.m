@@ -2,13 +2,13 @@ function Bai3(N_MFCC, frame_len, frame_shift)
     TrainDir = fullfile('..', 'NguyenAmKiemThu-16K');
 
     % Lay danh sach thu muc con cap 1
-    ListDir = dir(TrainDir);  % L?c ch? l?y c?c th? m?c
+    ListDir = dir(TrainDir);  % Lay cac thu muc
     ListDir = ListDir(3:end);  % Bo qua '.' va '..'
 
     filename = ['a';'e';'i';'o';'u'];
 
     vectorsCheck = vectorFeatureOfAll_MFCC(N_MFCC, frame_len, frame_shift);
-    plotFeatureVector(vectorsCheck);
+    plotFeatureVector(vectorsCheck, N_MFCC);
 
     confusion_matrix = zeros(5, 5);
 
@@ -32,7 +32,6 @@ function Bai3(N_MFCC, frame_len, frame_shift)
         end
     end
 
-    % Tính độ chính xác nhận dạng
     count = 0;
     for i = 1 : 5
         count = count + confusion_matrix(i, i);
@@ -41,7 +40,7 @@ function Bai3(N_MFCC, frame_len, frame_shift)
     fprintf('Ty le: %f\n', count/105);
     disp(confusion_matrix);
     
-    fig = figure('NumberTitle', 'off', 'Name', 'Bài 3');
+    fig = figure('NumberTitle', 'off', 'Name', 'Bai 3');
     
     % ao bang
     % tableData = num2cell(transpose(confusion_matrix));
@@ -51,13 +50,13 @@ function Bai3(N_MFCC, frame_len, frame_shift)
     
     % Thiet lap kich thuoc va vi tri cua bang
     tablePosition = getpixelposition(fig);  % Lay kich thuoc cua figure
-    tablePosition(1) = 0;  % ??t v? trí x c?a b?ng là 0
-    tablePosition(2) = 0;  % ??t v? trí y c?a b?ng là 0
-    tablePosition(3) = tablePosition(3);  % ??t chi?u dài c?a b?ng b?ng chi?u dài c?a figure
-    tablePosition(4) = tablePosition(4) * 0.9;  % ??t chi?u cao c?a b?ng b?ng chi?u cao c?a figure
+    tablePosition(1) = 0;  % Toa do x = 0
+    tablePosition(2) = 0;  % Toa do y = 0
+    tablePosition(3) = tablePosition(3);  % Chieu dai
+    tablePosition(4) = tablePosition(4) * 0.9;  % Chieu cao
     set(tableHandle, 'Units', 'pixels', 'Position', tablePosition);
     
-    fontSize = 20;  % Kích th??c ch? mong mu?n
+    fontSize = 20;
     set(tableHandle, 'FontSize', fontSize);
     
     set(tableHandle, 'ColumnWidth', {105});

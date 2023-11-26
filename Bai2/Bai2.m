@@ -10,7 +10,7 @@ function Bai2(N_FFT, frame_len, frame_dis)
 
     vectorsCheck = vectorFeatureOfall(N_FFT, frame_len, frame_dis);
 
-    plotFeatureVector(vectorsCheck);
+    plotFeatureVector(vectorsCheck, N_FFT);
     
     confusion_matrix = zeros(5, 5);
     for i = 1:length(ListDir)
@@ -41,7 +41,7 @@ function Bai2(N_FFT, frame_len, frame_dis)
     fprintf('Ty le: %f\n', count/105);
     disp(confusion_matrix);
 
-    fig = figure('NumberTitle', 'off', 'Name', 'Bài 2');
+    fig = figure('NumberTitle', 'off', 'Name', 'Bai 2');
 
     % Tao mot bang
     % tableData = num2cell(transpose(confusion_matrix));

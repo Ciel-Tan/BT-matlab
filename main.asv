@@ -1,0 +1,35 @@
+% cd('Bai1');
+% run('Bai1');
+
+
+% N_FFT = [512, 1024, 2048];
+% frame_len = 24;
+% frame_dis = 8;
+% 
+% for i = 20 : 25
+%     cd('Bai2');
+%     run(sprintf('Bai2(%d, %d, %d).m', N_FFT(2), i, frame_dis));
+%     
+%     cd('..');
+% end
+
+
+
+
+
+N_MFCC = 13;
+frame_lem = 20;
+frame_shift = 16;
+k = 2;
+
+% for i = 20 : 25
+%     cd('Bai2');
+%     run(sprintf('Bai2(%d, %d, %d).m', N_FFT(2), i, frame_dis));
+%     
+%     cd('..');
+end
+cd('Bai3');
+run(sprintf('Bai3_Kmean(%d, %d, %d, %d).m', N_MFCC, frame_lem, frame_shift, k));
+
+
+cd('..');
